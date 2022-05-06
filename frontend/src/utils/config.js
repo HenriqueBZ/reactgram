@@ -1,5 +1,5 @@
-export const api = "http://locahost:5000/api"
-export const upload = "http://localhost/upload"
+export const api = "http://localhost:5000/api"
+export const uploads = "http://localhost:5000/uploads"
 
 export const requestConfig = (method, data, token = null, image = null) => {
 
@@ -7,22 +7,22 @@ export const requestConfig = (method, data, token = null, image = null) => {
 
     if (image) {
         config = {
-            method,
+            method: method,
             body: data,
-            headers: {}
+            headers: {},
         }
     } else if (method === "DELETE" || data === null) {
         config = {
-            method,
-            headers: {}
+            method: method,
+            headers: {},
         }
     } else {
         config = {
-            method,
+            method: method,
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+            },
         }
     }   
 
