@@ -42,7 +42,7 @@ const register = async (req, res) => {
     if(!newUser) {
         res
             .status(422)
-            .json({ erros: ["Houve um erro, por favor, tente mais tarde."]})
+            .json({ errors: ["Houve um erro, por favor, tente mais tarde."]})
 
         return
     }
