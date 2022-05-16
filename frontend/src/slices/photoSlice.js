@@ -35,7 +35,7 @@ export const photoSlice = createSlice({
         resetMessage: (state) => {
             state.message = null
         }
-    }
+    },
     extraReducers: (builder) => {
         builder            
             .addCase(publishPhoto.pending, (state) => {
