@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom"
 
 // Redux
 import { getUserDetails } from "../../slices/userSlice"
-import { publishPhoto, resetMessage } from "../../slices/photoSlice"
+import { publishPhoto, resetMessage, getUserPhotos } from "../../slices/photoSlice"
 
 const Profile = () => {
 
@@ -31,8 +31,8 @@ const Profile = () => {
         error: errorPhoto,
     } = useSelector((state) => state.photo)
 
-    const [title, setTitle] = useState("")
-    const [image, setImage] = useState("")
+    const [title, setTitle] = useState()
+    const [image, setImage] = useState()
 
     // New form and edit form refs
     const newPhotoForm = useRef()
@@ -42,8 +42,9 @@ const Profile = () => {
     useEffect(() => {
 
         dispatch(getUserDetails(id))
+        dispatch(getUserPhotos(id))
 
-    }, [useDispatch, id])
+    }, [dispatch, id])
 
     const handleFile = (e) => {
         
@@ -120,6 +121,29 @@ const Profile = () => {
                     {messagePhoto && <Message msg={messagePhoto} type="success" />}
                 </>
             )}
+            <div className="user-photos">
+                <h2>Fotos publicadas:</h2>
+                <div className="photos-container">
+                    {photos && photos.map((photo) => (
+                        <div className="photo" key={photo._id}>
+                            {photo.image && (
+                                <img
+                                    src={`${uploads}/photos/${photo.image}`}
+                                    alt={photo.title}
+                                />
+                            )}
+                            {id === userAuth._id ? (
+                                <p>actions</p>
+                            ) : (
+                                <Link className="btn" to={`/photos/${photo._id}`}>
+                                    Ver
+                                </Link>
+                            )}
+                        </div>
+                    ))}
+                    {photos.length === 0 && <p>Ainda não há fotos publicadas</p>}
+                </div>
+            </div>
         </div>
     )
 }
