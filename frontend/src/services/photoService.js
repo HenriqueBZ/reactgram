@@ -117,7 +117,7 @@ const comment = async(data, id, token) => {
 
     try {
         
-        const res = await fetch(api + "/photo/comment" + id, config)
+        const res = await fetch(api + "/photos/comment/" + id, config)
             .then((res) => res.json())
             .catch((err) => err)
 
