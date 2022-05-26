@@ -53,6 +53,7 @@ const deletePhoto = async(req,res) => {
         // Check if photo belongs to user
         if (!photo.userId.equals(reqUser._id)) {
             res.status(422).json({ errors: ["Ocorreu um erro, tente novamente mais tarde."]})
+            return
         }
 
         await Photo.findByIdAndDelete(photo._id)
